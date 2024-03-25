@@ -1,5 +1,5 @@
 // import 'package:flutter_memo_app/config/hashPassword.dart';
-import 'package:foodplace/config/mysqlConnector.dart';
+import 'package:foodplace/services/mysqlConnector.dart';
 import 'package:mysql_client/mysql_client.dart';
 
 // ID 중복 확인

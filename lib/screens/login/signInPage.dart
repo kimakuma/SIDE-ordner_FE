@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:foodplace/login/sql.dart';
-import 'package:foodplace/login/signUpPage.dart';
+import 'package:foodplace/models/sql.dart';
+import 'package:foodplace/screens/login/signUpPage.dart';
 import 'package:foodplace/main.dart';
 
 // 로그인 페이지

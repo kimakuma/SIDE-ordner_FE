@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:foodplace/config/mysqlConnector.dart';
-import 'package:foodplace/header.dart';
-import 'package:foodplace/footer.dart';
-import 'package:foodplace/festival/mainPage.dart';
+import 'package:foodplace/services/mysqlConnector.dart';
+import 'package:foodplace/components/header.dart';
+import 'package:foodplace/components/footer.dart';
+import 'package:foodplace/screens/odrner/mainPage.dart';
 
 void main() {
   dbConnector();
@@ -22,11 +22,12 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Food Place',
       home: Scaffold(
         appBar: Header(widget.isLogin),
         body: MainPage(),
-        bottomNavigationBar:  Footer()
+        bottomNavigationBar: Footer()
       ),
     );
   }

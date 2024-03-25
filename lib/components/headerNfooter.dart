@@ -3,8 +3,8 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:foodplace/login/SignInPage.dart';
-import 'package:foodplace/login/signUpPage.dart';
+import 'package:foodplace/screens/login/SignInPage.dart';
+import 'package:foodplace/screens/login/signUpPage.dart';
 
 // import 'communityPage/communityMainPage.dart';
 // import 'memoPage/memoMainPage.dart';

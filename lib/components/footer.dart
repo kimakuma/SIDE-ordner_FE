@@ -1,27 +1,43 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class Footer extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Text('footer');
+class selectedPage with ChangeNotifier {
+  int _currentIndex = 0;
+  int get selectedPageIndex => _currentIndex;
+
+  void _onTap(int index) {
+    _currentIndex = index;
+
+    notifyListeners();
   }
 }
 
-// class Footer extends StatelessWidget implements PreferredSizeWidget {
-//   // const HeaderMain({super.key});
+class Footer extends StatefulWidget {
+  @override
+  State<Footer> createState() => _FooterState();
+}
 
-//   final double header_height = 60;
+class _FooterState extends State<Footer> {
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return const PreferredSize(
-//       preferredSize: Size.fromHeight(100),
-//       child: Text("footer")
-//     );
-//   }
-  
-//   // preferredSize 설정
-//   @override
-//   Size get preferredSize => Size.fromHeight(header_height);
-// }
+  final List<BottomNavigationBarItem> footerItems = [
+    BottomNavigationBarItem(icon: Icon(Icons.home_outlined), activeIcon: Icon(Icons.home), label: '홈'),
+    BottomNavigationBarItem(icon: Icon(Icons.search_outlined), activeIcon: Icon(Icons.search), label: '검색'),
+    BottomNavigationBarItem(icon: Icon(Icons.add_circle_outline), activeIcon: Icon(Icons.add_circle), label: '전환'),
+    BottomNavigationBarItem(icon: Icon(Icons.favorite_outline), activeIcon: Icon(Icons.favorite), label: '찜'),
+    BottomNavigationBarItem(icon: Icon(Icons.person_outline), activeIcon: Icon(Icons.person), label: '마이'),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomNavigationBar(
+      fixedColor: Colors.orangeAccent,
+      unselectedItemColor: Colors.blueGrey,
+      showSelectedLabels: true,
+      showUnselectedLabels: true,
+      type: BottomNavigationBarType.fixed,
+      items: footerItems,
+      currentIndex: context.read<selectedPage>()._currentIndex,
+      onTap: context.read<selectedPage>()._onTap,
+    );
+  }
+}

@@ -2,6 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:foodplace/main.dart';
 
+class user with ChangeNotifier {
+  int _currentIndex = 0;
+  int get selectedPageIndex => _currentIndex;
+
+  void _onTap(int index) {
+    _currentIndex = index;
+
+    notifyListeners();
+  }
+}
+
 class MyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

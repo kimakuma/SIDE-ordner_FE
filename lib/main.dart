@@ -3,8 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:foodplace/services/mysqlConnector.dart';
 import 'package:foodplace/components/header.dart';
 import 'package:foodplace/components/footer.dart';
-// import 'package:foodplace/screens/odrner/mainPage.dart';
-import 'package:foodplace/screens/odrner/mainPage.dart';
+import 'package:foodplace/screens/odrner/odrner_mainPage.dart';
+import 'package:foodplace/screens/search/search_mainPage.dart';
+import 'package:foodplace/screens/community/community_mainPage.dart';
+import 'package:foodplace/screens/favorite/favorite_mainPage.dart';
 import 'package:foodplace/screens/mypage/myPage.dart';
 
 void main() {
@@ -13,8 +15,6 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        // Login State
-        ChangeNotifierProvider(create: (_) => login()),
         // Footer - NavBar
         ChangeNotifierProvider(create: (_) => selectedPage()),
       ],
@@ -34,10 +34,10 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
 
   final List<Widget> _navPage = [
-    MainPage(),
-    MainPage(),
-    MainPage(),
-    MainPage(),
+    Odrner_MainPage(),
+    Search_MainPage(),
+    Community_MainPage(),
+    Favorite_MainPage(),
     MyPage(),
   ];
 

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:foodplace/screens/login/signInPage.dart';
-import 'package:foodplace/screens/mypage/myPage.dart';
+import 'package:foodplace/screens/my/myPage.dart';
 
 class Header extends StatefulWidget implements PreferredSizeWidget {
   final bool isLogin;

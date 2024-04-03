@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'package:foodplace/models/sql.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -141,6 +142,8 @@ class _SignUpState extends State<SignUpPage> {
                                   );
                                 },
                               );
+
+                              Navigator.of(context).pop();
                             }
                           },
                           child: Text('계정 생성'),

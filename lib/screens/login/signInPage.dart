@@ -1,10 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:foodplace/models/sql.dart';
-import 'package:foodplace/screens/login/signUpPage.dart';
-import 'package:foodplace/main.dart';
+import 'package:provider/provider.dart';
 
-// 로그인 페이지
+import 'package:foodplace/models/sql.dart';
+
+import 'package:foodplace/components/loginStatus.dart';
+
+import 'package:foodplace/screens/login/signUpPage.dart';
+import 'package:foodplace/screens/my/my_mainPage.dart';
+
 class LogInPage extends StatelessWidget {
   const LogInPage({super.key});
 
@@ -32,6 +36,8 @@ class _LoginState extends State<SignInPage> {
 
   @override
   Widget build(BuildContext context) {
+    final loginStatus = Provider.of<Login>(context);
+
     return MaterialApp(
       home: Scaffold(
         body: Center(
@@ -87,13 +93,9 @@ class _LoginState extends State<SignInPage> {
                         child: SizedBox(
                           child: ElevatedButton(
                             onPressed: () async {
-                              final loginCheck = await login(
-                                  idController.text, pwdController.text);
-                              print(loginCheck);
+                              final loginCheck = await login(idController.text, pwdController.text);
 
-                              // 로그인 확인
                               if (loginCheck == '-1') {
-                                print('로그인 실패');
                                 showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
@@ -112,16 +114,7 @@ class _LoginState extends State<SignInPage> {
                                   },
                                 );
                               } else {
-                                print('로그인 성공');
-                                isLogin = true;
-
-                                // 메인 페이지로 이동
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => MyApp(isLogin,),
-                                  ),
-                                );
+                                loginStatus.logIn();
                               }
                             },
                             child: Text('로그인'),

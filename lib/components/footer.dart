@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class selectedPage with ChangeNotifier {
+class SelectedPage with ChangeNotifier {
   int _currentIndex = 0;
   int get selectedPageIndex => _currentIndex;
 
@@ -36,8 +36,8 @@ class _FooterState extends State<Footer> {
       showUnselectedLabels: true,
       type: BottomNavigationBarType.fixed,
       items: footerItems,
-      currentIndex: context.read<selectedPage>()._currentIndex,
-      onTap: context.read<selectedPage>()._onTap,
+      currentIndex: context.read<SelectedPage>()._currentIndex,
+      onTap: context.read<SelectedPage>()._onTap,
     );
   }
 }

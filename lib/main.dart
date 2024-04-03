@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'package:foodplace/services/mysqlConnector.dart';
+import 'package:foodplace/components/loginStatus.dart';
+
 import 'package:foodplace/components/header.dart';
 import 'package:foodplace/components/footer.dart';
+
 import 'package:foodplace/screens/odrner/odrner_mainPage.dart';
 import 'package:foodplace/screens/search/search_mainPage.dart';
 import 'package:foodplace/screens/community/community_mainPage.dart';
 import 'package:foodplace/screens/favorite/favorite_mainPage.dart';
-import 'package:foodplace/screens/mypage/myPage.dart';
+import 'package:foodplace/screens/my/my_mainPage.dart';
 
 void main() {
   dbConnector();
@@ -15,8 +19,11 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
+        // Login State
+        ChangeNotifierProvider(create: (_) => Login()),
+
         // Footer - NavBar
-        ChangeNotifierProvider(create: (_) => selectedPage()),
+        ChangeNotifierProvider(create: (_) => SelectedPage()),
       ],
       child: MyApp(false)
     ),
@@ -32,13 +39,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   final List<Widget> _navPage = [
     Odrner_MainPage(),
     Search_MainPage(),
     Community_MainPage(),
     Favorite_MainPage(),
-    MyPage(),
+    My_MainPage(),
   ];
 
   @override
@@ -48,12 +54,9 @@ class _MyAppState extends State<MyApp> {
       title: 'Food Place',
       home: Scaffold(
         appBar: Header(widget.isLogin),
-        body: ChangeNotifierProvider(
-          create: (BuildContext context) => selectedPage(),
-          child: IndexedStack(
-            index: context.watch<selectedPage>().selectedPageIndex,
-            children: _navPage,
-          )
+        body: IndexedStack(
+          index: context.watch<SelectedPage>().selectedPageIndex,
+          children: _navPage,
         ),
         bottomNavigationBar: Footer()
       ),

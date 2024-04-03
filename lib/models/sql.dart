@@ -64,8 +64,6 @@ Future<String?> login(String id, String pwd) async {
 
     if (result.isNotEmpty) {
       for (final row in result.rows) {
-        print(row.assoc());
-
         return row.colAt(0);
       }
     }

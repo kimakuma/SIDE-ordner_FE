@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:foodplace/models/sql.dart';
-
 import 'package:foodplace/components/loginStatus.dart';
 
 import 'package:foodplace/screens/login/signUpPage.dart';
-import 'package:foodplace/screens/my/my_mainPage.dart';
 
 class LogInPage extends StatelessWidget {
   const LogInPage({super.key});
@@ -28,7 +26,6 @@ class SignInPage extends StatefulWidget {
 }
 
 class _LoginState extends State<SignInPage> {
-  bool isLogin = false;
   bool switchValue = false;
 
   final TextEditingController idController = TextEditingController();

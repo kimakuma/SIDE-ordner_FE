@@ -1,3 +1,5 @@
+/* 회원가입 페이지 */
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -11,8 +13,11 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUpPage> {
+  // ID
   final TextEditingController idController = TextEditingController();
+  // PW
   final TextEditingController pwdController = TextEditingController();
+  // PW 재입력
   final TextEditingController pwdVerifyController = TextEditingController();
 
   @override
@@ -69,12 +74,14 @@ class _SignUpState extends State<SignUpPage> {
                         width: 95,
                         child: OutlinedButton(
                           onPressed: () {
+                            // 이전 화면(로그인 페이지) 이동
                             Navigator.of(context).pop();
                           },
                           child: Text('뒤로 가기'),
                         ),
                       ),
                       Text('   '),
+                      // 계정 생성 버튼
                       SizedBox(
                         width: 195,
                         child: ElevatedButton(

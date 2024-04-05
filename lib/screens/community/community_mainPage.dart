@@ -1,3 +1,5 @@
+/* NavBar("커뮤니티")를 통한 진입 페이지 */
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

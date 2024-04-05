@@ -1,10 +1,15 @@
+/* 로그인 페이지 */
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:foodplace/models/sql.dart';
+
+// 로그인 상태 관리 페이지
 import 'package:foodplace/components/loginStatus.dart';
 
+// 회원가입 페이지
 import 'package:foodplace/screens/login/signUpPage.dart';
 
 class LogInPage extends StatelessWidget {
@@ -28,7 +33,9 @@ class SignInPage extends StatefulWidget {
 class _LoginState extends State<SignInPage> {
   bool switchValue = false;
 
+  // ID
   final TextEditingController idController = TextEditingController();
+  // PW
   final TextEditingController pwdController = TextEditingController();
 
   @override
@@ -71,11 +78,13 @@ class _LoginState extends State<SignInPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      // 회원가입 버튼
                       OutlinedButton(
                         onPressed: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
+                              // 회원가입 페이지 이동
                               builder: (context) => SignUpPage(),
                             ),
                           );
@@ -85,6 +94,7 @@ class _LoginState extends State<SignInPage> {
                         ),
                       ),
                       Text('    '),
+                      // 로그인 버튼
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: SizedBox(

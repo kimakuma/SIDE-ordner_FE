@@ -42,97 +42,95 @@ class _LoginState extends State<SignInPage> {
   Widget build(BuildContext context) {
     final loginStatus = Provider.of<Login>(context);
 
-    return MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 300,
-                    child: CupertinoTextField(
-                      controller: idController,
-                      placeholder: "아이디를 입력해주세요",
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: 300,
-                    child: CupertinoTextField(
-                      controller: pwdController,
-                      placeholder: "비밀번호를 입력해주세요",
-                      textAlign: TextAlign.center,
-                      obscureText: true,
-                    ),
-                  ),
-                ),
-                SizedBox(
+    return Scaffold(
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
                   width: 300,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // 회원가입 버튼
-                      OutlinedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              // 회원가입 페이지 이동
-                              builder: (context) => SignUpPage(),
-                            ),
-                          );
-                        },
-                        child: Text(
-                          "회원 가입",
-                        ),
-                      ),
-                      Text('    '),
-                      // 로그인 버튼
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          child: ElevatedButton(
-                            onPressed: () async {
-                              final loginCheck = await login(idController.text, pwdController.text);
-
-                              if (loginCheck == '-1') {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: Text('알림'),
-                                      content: Text('아이디 또는 비밀번호가 올바르지 않습니다.'),
-                                      actions: [
-                                        TextButton(
-                                          child: Text('닫기'),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              } else {
-                                loginStatus.logIn();
-                              }
-                            },
-                            child: Text('로그인'),
-                          ),
-                        ),
-                      ),
-                    ],
+                  child: CupertinoTextField(
+                    controller: idController,
+                    placeholder: "아이디를 입력해주세요",
+                    textAlign: TextAlign.center,
                   ),
                 ),
-              ],
-            ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  width: 300,
+                  child: CupertinoTextField(
+                    controller: pwdController,
+                    placeholder: "비밀번호를 입력해주세요",
+                    textAlign: TextAlign.center,
+                    obscureText: true,
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 300,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // 회원가입 버튼
+                    OutlinedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            // 회원가입 페이지 이동
+                            builder: (context) => SignUpPage(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        "회원 가입",
+                      ),
+                    ),
+                    Text('    '),
+                    // 로그인 버튼
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            final loginCheck = await login(idController.text, pwdController.text);
+
+                            if (loginCheck == '-1') {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text('알림'),
+                                    content: Text('아이디 또는 비밀번호가 올바르지 않습니다.'),
+                                    actions: [
+                                      TextButton(
+                                        child: Text('닫기'),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            } else {
+                              loginStatus.logIn();
+                            }
+                          },
+                          child: Text('로그인'),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),

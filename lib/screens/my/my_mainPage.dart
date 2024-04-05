@@ -18,12 +18,9 @@ class My_MainPage extends StatelessWidget {
     // 로그인 상태 load
     final loginStatus = Provider.of<Login>(context);
 
-    return MaterialApp(
-      title: 'Food Place',
-      home: Scaffold(
+    return Scaffold(
         // 로그인 상태에 따라 로그인 / 마이 페이지 이동
         body: loginStatus.isLogined ? MyPage() : SignInPage()
-      ),
-    );
+      );
   }
 }

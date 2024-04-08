@@ -1,5 +1,8 @@
 /* 마이 페이지 */
 
+import 'dart:ffi';
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -9,14 +12,18 @@ import 'package:provider/provider.dart';
 // 로그인 상태 관리
 import 'package:foodplace/components/loginStatus.dart';
 
+// Widget
+import 'package:foodplace/screens/my/widget/myInfo.dart';
 
 // 테스트용 페이지
 import 'package:foodplace/screens/login/signInPage.dart';
 
 // 메뉴 리스트 매핑
 class menuList {
+  int menuLen = 16;
+
   final Map<String, Map<String, Route>> menu = {
-    "내역": {
+    "내역 목록": {
       "예약 내역": MaterialPageRoute(builder: (context) => SignInPage(),),
       "찜 내역": MaterialPageRoute(builder: (context) => SignInPage(),),
       "결제 내역": MaterialPageRoute(builder: (context) => SignInPage(),),
@@ -46,25 +53,51 @@ class MyPage extends StatelessWidget {
     // 로그인 상태 load
     final loginStatus = Provider.of<Login>(context);
 
-    return Container(
-      child: Column(
-        children: [
-          Text("마이"),
-          
-          // 메뉴 리스트
-          ListView(
+    return Column(
+      children: [
+        // 메뉴 리스트
+        Expanded(
+          child: ListView(
             shrinkWrap: true,
             children: [
+              // 개인 정보
+              MyInfo(),
+
+              Divider(
+                thickness: 3,
+                height: 0
+              ),
               ...menuList().menu.entries.map((e) => Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // 카테고리 명
-                    Text(e.key),
+                    Text(
+                      e.key,
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        height: 2
+                      ),
+                    ),
+    
+                    // 세부 카테고리 명
                     ...?menuList().menu[e.key]?.entries.map((childE) => GestureDetector(
-                      // 세부 카테고리 명
-                      child: Text("  " + childE.key),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("\t\t\t${childE.key}"),
+                          Text(
+                            ">",
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 10
+                            ),
+                          )
+                        ],
+                      ),
                       // 페이지 이동
                       onTap: () {
                         Navigator.push(
@@ -72,19 +105,34 @@ class MyPage extends StatelessWidget {
                           childE.value,
                         );
                       },
-                    ))
+                    )),
+                    
+                    Divider(
+                      height: 20
+                    ),
                   ],
-                )
+                ),
               )),
+    
+              // 로그아웃 버튼
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
+                child: GestureDetector(
+                  child: Text(
+                    "로그아웃",
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      height: 2
+                    )
+                  ),
+                  onTap: () { loginStatus.logOut(); }
+                ),
+              )
             ]
           ),
-
-          // 로그아웃 버튼
-          ElevatedButton(
-            onPressed: () { loginStatus.logOut(); },
-            child: Text("로그아웃"))
-        ],
-      )
+        ),
+      ],
     );
   }
 }

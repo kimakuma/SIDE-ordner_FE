@@ -1,5 +1,9 @@
 /* 마이 페이지 - 메뉴 리스트 */
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+// 로그인 상태 관리
+import 'package:foodplace/components/loginStatus.dart';
 
 // 테스트용 페이지
 import 'package:foodplace/screens/login/signInPage.dart';
@@ -88,6 +92,29 @@ class Menu extends StatelessWidget {
           )),
         ],
       )
+    );
+  }
+}
+
+class LogOutBtn extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // 로그인 상태 load
+    final loginStatus = Provider.of<Login>(context);
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
+      child: GestureDetector(
+        child: Text(
+          "로그아웃",
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+            height: 2
+          )
+        ),
+        onTap: () { loginStatus.logOut(); }
+      ),
     );
   }
 }

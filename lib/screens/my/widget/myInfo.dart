@@ -7,20 +7,24 @@ class MyInfo extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.all(18),
+          padding: const EdgeInsets.fromLTRB(18, 0, 18, 0),
           child:  Column(
             children: [
+              // 사용자 정보
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  // 개인 정보
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
+                      // 프로필 사진
                       ClipRRect(
                         borderRadius: BorderRadius.circular(50),
                         child: Image.asset(width: 50, 'images/profile.webp'),
                       ),
                       SizedBox(width: 10,),
+                      // 사용자명, 사용자계정
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -40,6 +44,7 @@ class MyInfo extends StatelessWidget {
                       )
                     ]
                   ),
+                  // 계정 설정 버튼
                   FilledButton(
                     style: FilledButton.styleFrom( 
                       padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
@@ -60,6 +65,7 @@ class MyInfo extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 18,),
+              // 포인트 / 쿠폰
               Container(
                 height: 40,
                 decoration: BoxDecoration(
@@ -80,7 +86,7 @@ class MyInfo extends StatelessWidget {
                   )
                 ),
               ),
-              SizedBox(height: 18,),
+              SizedBox(height: 12,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -122,7 +128,7 @@ class MyInfo extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 25,),
+              SizedBox(height: 18,),
             ],
           ),
         ),

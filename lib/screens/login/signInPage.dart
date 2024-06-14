@@ -1,10 +1,13 @@
 /* 로그인 페이지 */
 
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:foodplace/models/sql.dart';
+import 'package:foodplace/services/API.dart';
 
 // 로그인 상태 관리 페이지
 import 'package:foodplace/components/loginStatus.dart';
@@ -99,9 +102,10 @@ class _LoginState extends State<SignInPage> {
                       child: SizedBox(
                         child: ElevatedButton(
                           onPressed: () async {
-                            final loginCheck = await login(idController.text, pwdController.text);
+                            // final loginCheck = await login(idController.text, pwdController.text);
+                            final Map loginCheck = await APIPost(path: "/user/login", params: {"email": idController.text, "pwd": pwdController.text});
 
-                            if (loginCheck == '-1') {
+                            if (loginCheck['status'] == 400) {
                               showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
@@ -119,7 +123,7 @@ class _LoginState extends State<SignInPage> {
                                   );
                                 },
                               );
-                            } else {
+                            } else if (loginCheck['status'] == 200) {
                               loginStatus.logIn();
                             }
                           },

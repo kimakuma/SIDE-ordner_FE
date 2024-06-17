@@ -30,18 +30,17 @@ import 'package:http/http.dart' as http;
 //   }
 // }
 
-Future<Map<String, dynamic>> APIPost({required String path, dynamic params}) async {
+Future<Map<String, dynamic>> APIPost(
+    {required String path, dynamic params}) async {
   String url = "http://3.34.95.168:9600$path";
 
   try {
-    http.Response response = await http.post(
-      Uri.parse(url), 
-      body: jsonEncode(params), 
-      headers: {
-        "accept": "application/json",
-        "Content-Type": "application/json",
-      }
-    );
+    print(jsonEncode(params));
+    http.Response response =
+        await http.post(Uri.parse(url), body: jsonEncode(params), headers: {
+      "accept": "application/json",
+      "Content-Type": "application/json",
+    });
 
     return jsonDecode(response.body);
   } catch (e) {

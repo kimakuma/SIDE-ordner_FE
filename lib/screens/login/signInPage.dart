@@ -102,12 +102,11 @@ class _LoginState extends State<SignInPage> {
                         child: ElevatedButton(
                           onPressed: () async {
                             final Map loginCheck = await APIPost(
-                              path: "/user/login", 
-                              params: {
-                                "email": idController.text,
-                                "pwd": pwdController.text
-                              }
-                            );
+                                path: "/user/login",
+                                params: {
+                                  "email": idController.text,
+                                  "pwd": pwdController.text
+                                });
 
                             if (loginCheck['status'] == 400) {
                               showDialog(
@@ -128,7 +127,7 @@ class _LoginState extends State<SignInPage> {
                                 },
                               );
                             } else if (loginCheck['status'] == 200) {
-                              loginStatus.logIn();
+                              loginStatus.logIn(loginCheck['results'][0]);
                             }
                           },
                           child: Text('로그인'),

@@ -20,16 +20,13 @@ import 'package:foodplace/screens/my/my_mainPage.dart';
 void main() {
   runApp(
     // Provider 상태 관리
-    MultiProvider(
-      providers: [
-        // 로그인 상태
-        ChangeNotifierProvider(create: (_) => Login()),
+    MultiProvider(providers: [
+      // 로그인 상태
+      ChangeNotifierProvider(create: (_) => Login()),
 
-        // NavBar 선택 페이지 상태
-        ChangeNotifierProvider(create: (_) => SelectedPage()),
-      ],
-      child: MyApp()
-    ),
+      // NavBar 선택 페이지 상태
+      ChangeNotifierProvider(create: (_) => SelectedPage()),
+    ], child: MyApp()),
   );
 }
 
@@ -54,20 +51,19 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Food Place',
       home: Scaffold(
-        // Header
-        appBar: Header(context.watch<Login>().isLogined),
+          // Header
+          appBar: Header(context.watch<Login>().isLogined),
 
-        // Body
-        body: IndexedStack(
-          // NavBar 선택된 index 값
-          index: context.watch<SelectedPage>().selectedPageIndex,
-          // NavBar 선택된 index 값에 따른 페이지
-          children: _navPage,
-        ),
+          // Body
+          body: IndexedStack(
+            // NavBar 선택된 index 값
+            index: context.watch<SelectedPage>().selectedPageIndex,
+            // NavBar 선택된 index 값에 따른 페이지
+            children: _navPage,
+          ),
 
-        // Footer
-        bottomNavigationBar: Footer()
-      ),
+          // Footer
+          bottomNavigationBar: Footer()),
     );
   }
 }

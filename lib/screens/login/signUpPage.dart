@@ -3,7 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:foodplace/models/sql.dart';
+import 'package:foodplace/services/API.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -13,11 +13,15 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUpPage> {
-  // ID
-  final TextEditingController idController = TextEditingController();
-  // PW
+  // name
+  final TextEditingController nameController = TextEditingController();
+  // phone
+  final TextEditingController phoneController = TextEditingController();
+  // email
+  final TextEditingController emailController = TextEditingController();
+  // pwd
   final TextEditingController pwdController = TextEditingController();
-  // PW 재입력
+  // pwd 재입력
   final TextEditingController pwdVerifyController = TextEditingController();
 
   @override
@@ -34,8 +38,30 @@ class _SignUpState extends State<SignUpPage> {
                 child: SizedBox(
                   width: 300,
                   child: CupertinoTextField(
-                    controller: idController,
-                    placeholder: '아이디를 입력해주세요',
+                    controller: nameController,
+                    placeholder: '이름를 입력해주세요',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  width: 300,
+                  child: CupertinoTextField(
+                    controller: phoneController,
+                    placeholder: '핸드폰 번호를 입력해주세요',
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  width: 300,
+                  child: CupertinoTextField(
+                    controller: emailController,
+                    placeholder: '이메일를 입력해주세요',
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -85,31 +111,7 @@ class _SignUpState extends State<SignUpPage> {
                       width: 195,
                       child: ElevatedButton(
                         onPressed: () async {
-                          final idCheck = await confirmIdCheck(idController.text);
-
-                          print('idCheck : $idCheck');
-
-                          if (idCheck != '0') {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Text('알림'),
-                                  content: Text('입력한 아이디가 이미 존재합니다.'),
-                                  actions: [
-                                    TextButton(
-                                      child: Text('닫기'),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          }
-                          else if (pwdController.text !=
-                              pwdVerifyController.text) {
+                          if (pwdController.text != pwdVerifyController.text) {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
@@ -127,29 +129,53 @@ class _SignUpState extends State<SignUpPage> {
                                 );
                               },
                             );
-                          }
-                          else {
-                            insertMember(idController.text,
-                                pwdController.text);
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Text('알림'),
-                                  content: Text('아이디가 생성되었습니다.'),
-                                  actions: [
-                                    TextButton(
-                                      child: Text('닫기'),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
+                          } else {
+                            final Map signUp =
+                                await APIPost(path: "/user/signUp", params: {
+                              "name": nameController.text,
+                              "phone": phoneController.text,
+                              "email": emailController.text,
+                              "pwd": pwdController.text
+                            });
 
-                            Navigator.of(context).pop();
+                            if (signUp['status'] == 200) {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text('알림'),
+                                    content: Text('회원가입이 완료되었습니다.'),
+                                    actions: [
+                                      TextButton(
+                                        child: Text('닫기'),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            } else if (signUp['status'] == 400) {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text('알림'),
+                                    content: Text(signUp['message']),
+                                    actions: [
+                                      TextButton(
+                                        child: Text('닫기'),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            }
                           }
                         },
                         child: Text('계정 생성'),

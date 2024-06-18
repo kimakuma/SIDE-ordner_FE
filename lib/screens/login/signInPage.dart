@@ -102,7 +102,7 @@ class _LoginState extends State<SignInPage> {
                         child: ElevatedButton(
                           onPressed: () async {
                             final Map loginCheck = await APIPost(
-                                path: "/user/login",
+                                path: "/user/signIn",
                                 params: {
                                   "email": idController.text,
                                   "pwd": pwdController.text
@@ -114,7 +114,7 @@ class _LoginState extends State<SignInPage> {
                                 builder: (BuildContext context) {
                                   return AlertDialog(
                                     title: Text('알림'),
-                                    content: Text('아이디 또는 비밀번호가 올바르지 않습니다.'),
+                                    content: Text(loginCheck['message']),
                                     actions: [
                                       TextButton(
                                         child: Text('닫기'),

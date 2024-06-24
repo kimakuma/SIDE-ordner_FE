@@ -21,7 +21,9 @@ class _ReserveListPageState extends State<ReserveListPage> {
   List<dynamic> afterResult = [];
 
   Future<void> init() async {
-    final response = await APIGet(path: "/reserve/list?userId=2");
+    final userInfo = Provider.of<Login>(context, listen: false);
+    final userId = userInfo.id;
+    final response = await APIGet(path: '/reserve/list?userId=$userId');
 
     if (response['status'] == 200 && !response['results']['before'].isEmpty) {
       setState(() {

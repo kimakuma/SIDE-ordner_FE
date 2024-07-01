@@ -11,7 +11,7 @@ import 'package:foodplace/components/header.dart';
 import 'package:foodplace/components/footer.dart';
 
 // NavBar 페이지("홈", "검색", "커뮤니티", "찜", "마이")
-import 'package:foodplace/screens/odrner/odrner_mainPage.dart';
+import 'package:foodplace/screens/odrner/mainPage.dart';
 import 'package:foodplace/screens/search/search_mainPage.dart';
 import 'package:foodplace/screens/community/community_mainPage.dart';
 import 'package:foodplace/screens/favorite/favorite_mainPage.dart';
@@ -38,7 +38,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   // NavBar에 들어갈 페이지 목록 ("홈", "검색", "커뮤니티", "찜", "마이")
   final List<Widget> _navPage = [
-    Odrner_MainPage(),
+    MainPage(),
     Search_MainPage(),
     Community_MainPage(),
     Favorite_MainPage(),

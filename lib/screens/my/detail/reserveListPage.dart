@@ -67,7 +67,7 @@ class _ReserveListPageState extends State<ReserveListPage> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(data['reserved']),
+                  Text(data['truckName']),
                   Row(
                     children: [
                       Column(
@@ -128,9 +128,6 @@ class _ReserveListPageState extends State<ReserveListPage> {
             height: 10,
           ),
           Text("마음에 드는 트럭을 둘러보세요"),
-          SizedBox(
-            height: 5,
-          ),
           Text("트럭 둘러보기")
         ],
       ));

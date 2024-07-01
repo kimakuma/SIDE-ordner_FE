@@ -7,8 +7,8 @@ import 'package:http/http.dart' as http;
 // API 연결
 // GET
 Future<Map<String, dynamic>> APIGet({required String path}) async {
-  // String url = "http://3.34.95.168:9600$path";
-  String url = "http://localhost:9600$path";
+  String url = "http://3.34.95.168:9600$path";
+  // String url = "http://localhost:9600$path";
 
   try {
     http.Response response = await http.get(Uri.parse(url), headers: {
@@ -32,8 +32,8 @@ Future<Map<String, dynamic>> APIGet({required String path}) async {
 
 Future<Map<String, dynamic>> APIPost(
     {required String path, dynamic params}) async {
-  // String url = "http://3.34.95.168:9600$path";
-  String url = "http://localhost:9600$path";
+  String url = "http://3.34.95.168:9600$path";
+  // String url = "http://localhost:9600$path";
 
   try {
     http.Response response =

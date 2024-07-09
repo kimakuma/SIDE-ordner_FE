@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 
 import 'package:foodplace/services/API.dart';
 
+import 'package:foodplace/screens/odrner/truckPage.dart';
+
 class Recent extends StatefulWidget {
   @override
   State<Recent> createState() => _RecentState();
@@ -50,29 +52,34 @@ class _RecentState extends State<Recent> {
                 ...List.generate(
                     truckList.length,
                     (i) => GestureDetector(
-                        onTap: () {
-                          print(truckList[i]['name']);
-                        },
-                        child: Container(
-                            height: 100,
-                            width: 100,
-                            margin: i != truckList.length - 1
-                                ? EdgeInsets.fromLTRB(0, 0, 15, 0)
-                                : EdgeInsets.all(0),
-                            child: Column(
-                              children: [
-                                Container(
-                                    width: 100,
-                                    height: 70,
-                                    child: Image.asset(
-                                        fit: BoxFit.fitWidth,
-                                        'images${truckList[i]['img']}')),
-                                Padding(padding: EdgeInsets.all(3)),
-                                Text(truckList[i]['name'].length < 10
-                                    ? truckList[i]['name']
-                                    : truckList[i]['name'].substring(0, 9))
-                              ],
-                            ))))
+                          child: Container(
+                              height: 100,
+                              width: 100,
+                              margin: i != truckList.length - 1
+                                  ? EdgeInsets.fromLTRB(0, 0, 15, 0)
+                                  : EdgeInsets.all(0),
+                              child: Column(
+                                children: [
+                                  Container(
+                                      width: 100,
+                                      height: 70,
+                                      child: Image.asset(
+                                          fit: BoxFit.fitWidth,
+                                          'images${truckList[i]['img']}')),
+                                  Padding(padding: EdgeInsets.all(3)),
+                                  Text(truckList[i]['name'].length < 10
+                                      ? truckList[i]['name']
+                                      : truckList[i]['name'].substring(0, 9))
+                                ],
+                              )),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        TruckPage(truckList[i]['truckId'])));
+                          },
+                        ))
                 //...truckList.map((v) => ),
               ],
             ),

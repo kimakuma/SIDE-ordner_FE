@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 // 로그인 상태 관리 페이지
 import 'package:foodplace/components/loginStatus.dart';
@@ -17,7 +18,10 @@ import 'package:foodplace/screens/community/community_mainPage.dart';
 import 'package:foodplace/screens/favorite/favorite_mainPage.dart';
 import 'package:foodplace/screens/my/my_mainPage.dart';
 
-void main() {
+void main() async {
+  // Table Calendar Korean Format
+  await initializeDateFormatting();
+
   runApp(
     // Provider 상태 관리
     MultiProvider(providers: [

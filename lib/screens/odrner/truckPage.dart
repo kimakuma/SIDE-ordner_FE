@@ -1,5 +1,7 @@
 /* 마이 페이지 - 개인 정보 */
 import 'package:flutter/material.dart';
+import 'package:table_calendar/table_calendar.dart';
+import 'package:intl/intl.dart';
 
 import 'package:foodplace/services/API.dart';
 
@@ -44,7 +46,62 @@ class _TruckPageState extends State<TruckPage> {
             height: 130,
             child: Image.asset(fit: BoxFit.fill, 'images${truckInfo['img']}')),
         Padding(padding: EdgeInsets.all(5)),
-        Text(style: TextStyle(fontSize: 30), truckInfo['name'])
+        Text(style: TextStyle(fontSize: 30), truckInfo['name']),
+        Container(
+            width: 100,
+            height: 25,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: Colors.grey,
+                width: 1,
+              ),
+            ),
+            child: GestureDetector(
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return Dialog(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        child: SizedBox(
+                          height: 300,
+                          child: TableCalendar(
+                              focusedDay: DateTime.now(),
+                              firstDay: DateTime.now(),
+                              lastDay: DateTime.now().add(Duration(days: 365)),
+                              locale: 'ko_KR',
+                              rowHeight: 35,
+                              headerStyle: HeaderStyle(
+                                formatButtonVisible: false,
+                                titleCentered: true,
+                                titleTextFormatter: (date, locale) =>
+                                    DateFormat.yMMMM(locale).format(date),
+                              ),
+                              calendarStyle: CalendarStyle(
+                                  todayDecoration: BoxDecoration(
+                                      color: Colors.transparent,
+                                      shape: BoxShape.circle,
+                                      border: Border.all(
+                                          color:
+                                              Color.fromARGB(255, 45, 122, 255),
+                                          width: 2)),
+                                  todayTextStyle:
+                                      TextStyle(color: Colors.black))),
+                        ),
+                      );
+                    });
+              },
+              child: IntrinsicHeight(
+                  child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Icon(Icons.calendar_month, color: Colors.grey, size: 20),
+                  Text("날짜 확인", style: TextStyle(color: Colors.grey.shade700)),
+                ],
+              )),
+            )),
       ]);
     } else {
       return Loading();

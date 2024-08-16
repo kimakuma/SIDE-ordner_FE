@@ -1,12 +1,11 @@
 /* 마이 페이지 - 개인 정보 */
 import 'package:flutter/material.dart';
-import 'package:table_calendar/table_calendar.dart';
-import 'package:intl/intl.dart';
 
 import 'package:foodplace/services/API.dart';
-
 import 'package:foodplace/components/loading.dart';
 import 'package:foodplace/screens/widget/calendar.dart';
+
+import 'package:foodplace/screens/odrner/reservePage.dart';
 
 class TruckPage extends StatefulWidget {
   final int truckId;
@@ -194,7 +193,13 @@ class _TruckPageState extends State<TruckPage> {
                     ),
                   ),
                   GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    ReservePage(_rangeStart, _rangeEnd)));
+                      },
                       child: Column(children: [
                         Container(
                             width: (MediaQuery.of(context).size.width - 30),

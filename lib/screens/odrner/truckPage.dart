@@ -187,7 +187,7 @@ class _TruckPageState extends State<TruckPage> {
                     child: TabBarView(
                       children: [
                         truckMenuWidget(),
-                        Text("트럭 정보 칸입니다.\n 저장된 정보가 없네뇽 ㅜ"),
+                        Text("트럭 정보 칸입니다.\n 저장된 정보가 없네용 ㅜ"),
                         Text("추후 추가")
                       ],
                     ),

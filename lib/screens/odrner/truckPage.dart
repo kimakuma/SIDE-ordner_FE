@@ -21,6 +21,8 @@ class _TruckPageState extends State<TruckPage> {
   List reservedDays = [];
   DateTime? _rangeStart;
   DateTime? _rangeEnd;
+  DateTime? selectedStart;
+  DateTime? selectedEnd;
 
   Future<void> init() async {
     final response =
@@ -68,21 +70,21 @@ class _TruckPageState extends State<TruckPage> {
                     context: context,
                     builder: (context) {
                       return Dialog(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(0)),
-                        child: SizedBox(
-                          height: 300,
-                          child: Calendar(
-                            reservedDays: reservedDays,
-                            onRangeSelected: (start, end) {
-                              setState(() {
-                                _rangeStart = start;
-                                _rangeEnd = end;
-                              });
-                            },
-                          ),
-                        ),
-                      );
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(0)),
+                          child: SizedBox(
+                              height: 300,
+                              child: Calendar(
+                                reservedDays: reservedDays,
+                                onRangeSelected: (start, end) {
+                                  setState(() {
+                                    _rangeStart = start;
+                                    _rangeEnd = end;
+                                  });
+                                },
+                                selectedStart: _rangeStart,
+                                selectedEnd: _rangeEnd,
+                              )));
                     });
               },
               child: IntrinsicHeight(
@@ -187,7 +189,7 @@ class _TruckPageState extends State<TruckPage> {
                     child: TabBarView(
                       children: [
                         truckMenuWidget(),
-                        Text("트럭 정보 칸입니다.\n 저장된 정보가 없네용 ㅜ"),
+                        Text("트럭 정보 칸입니다.\n 저장된 정보가 없네뇽 ㅜ"),
                         Text("추후 추가")
                       ],
                     ),

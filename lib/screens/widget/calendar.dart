@@ -5,8 +5,14 @@ import 'package:table_calendar/table_calendar.dart';
 class Calendar extends StatefulWidget {
   final List reservedDays;
   final Function(DateTime?, DateTime?) onRangeSelected;
+  final DateTime? selectedStart;
+  final DateTime? selectedEnd;
 
-  Calendar({required this.reservedDays, required this.onRangeSelected});
+  Calendar(
+      {required this.reservedDays,
+      required this.onRangeSelected,
+      required this.selectedStart,
+      required this.selectedEnd});
 
   @override
   _CalendarState createState() => _CalendarState();
@@ -20,6 +26,8 @@ class _CalendarState extends State<Calendar> {
   DateTime? _selectedDay;
   DateTime? _rangeStart;
   DateTime? _rangeEnd;
+
+  bool isSelected = false;
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +59,9 @@ class _CalendarState extends State<Calendar> {
             return widget.reservedDays
                 .contains(DateTime(day.year, day.month, day.day));
           },
-          rangeStartDay: _rangeStart,
-          rangeEndDay: _rangeEnd,
+          rangeStartDay:
+              isSelected == false ? widget.selectedStart : _rangeStart,
+          rangeEndDay: isSelected == false ? widget.selectedEnd : _rangeEnd,
           calendarFormat: _calendarFormat,
           rangeSelectionMode: _rangeSelectionMode,
           onRangeSelected: (start, end, focusedDay) {
@@ -62,6 +71,8 @@ class _CalendarState extends State<Calendar> {
               _rangeStart = start;
               _rangeEnd = end;
               _rangeSelectionMode = RangeSelectionMode.toggledOn;
+
+              isSelected = true;
             });
             widget.onRangeSelected(start, end);
           },

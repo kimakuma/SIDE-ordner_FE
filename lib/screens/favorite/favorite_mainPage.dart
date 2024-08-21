@@ -32,15 +32,16 @@ class _Favorite_MainPageState extends State<Favorite_MainPage> {
           title: Text('일정 확인'),
           content: Container(
             width: double.maxFinite,
-            child: Calendar(
-              reservedDays: reservedDays,
-              onRangeSelected: (start, end) {
-                setState(() {
-                  _rangeStart = start;
-                  _rangeEnd = end;
-                });
-              },
-            ),
+            child: Text("ASdasdasd"),
+            // child: Calendar(
+            //   reservedDays: reservedDays,
+            //   onRangeSelected: (start, end) {
+            //     setState(() {
+            //       _rangeStart = start;
+            //       _rangeEnd = end;
+            //     });
+            //   },
+            // ),
           ),
           actions: <Widget>[
             TextButton(

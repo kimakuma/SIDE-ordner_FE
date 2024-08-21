@@ -15,6 +15,7 @@ class ReservePage extends StatefulWidget {
 class _ReservePageState extends State<ReservePage> {
   Future<void> init() async {
     print(widget._rangeStart);
+    print(widget);
   }
 
   @override
@@ -33,8 +34,9 @@ class _ReservePageState extends State<ReservePage> {
                     SizedBox(
                       height: 10,
                     ),
-                    Text('예약인원: 5 명'),
-                    Text('예약일: ${widget._rangeStart}'),
+                    Text('예약 인원: 5 명'),
+                    Text('예약 시작일: ${widget._rangeStart}'),
+                    Text('예약 종료일: ${widget._rangeEnd}'),
                     SizedBox(
                       height: 20,
                     ),

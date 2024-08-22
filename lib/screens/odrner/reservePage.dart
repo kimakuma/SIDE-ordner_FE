@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'package:foodplace/screens/widget/calendar.dart';
+import 'package:flutter/services.dart';
 
 class ReservePage extends StatefulWidget {
   final DateTime? _rangeStart;
@@ -13,9 +12,19 @@ class ReservePage extends StatefulWidget {
 }
 
 class _ReservePageState extends State<ReservePage> {
-  Future<void> init() async {
-    print(widget._rangeStart);
-    print(widget);
+  late String selectedStart;
+  late String selectedEnd;
+
+  @override
+  void initState() {
+    super.initState();
+
+    selectedStart = widget._rangeStart != null
+        ? "${widget._rangeStart?.year}-${widget._rangeStart?.month}-${widget._rangeStart?.day}"
+        : "0000-00-00";
+    selectedEnd = widget._rangeStart != null
+        ? "${widget._rangeEnd?.year}-${widget._rangeEnd?.month}-${widget._rangeEnd?.day}"
+        : "0000-00-00";
   }
 
   @override
@@ -35,8 +44,7 @@ class _ReservePageState extends State<ReservePage> {
                       height: 10,
                     ),
                     Text('예약 인원: 5 명'),
-                    Text('예약 시작일: ${widget._rangeStart}'),
-                    Text('예약 종료일: ${widget._rangeEnd}'),
+                    Text('예약 일자: $selectedStart ~ $selectedEnd'),
                     SizedBox(
                       height: 20,
                     ),
@@ -55,15 +63,15 @@ class _ReservePageState extends State<ReservePage> {
                           color: Colors.grey,
                         ),
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide(color: Colors.grey),
                         ),
                         enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide(color: Colors.grey),
                         ),
                         focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide(color: Colors.blue),
                         ),
                         contentPadding:
@@ -74,6 +82,9 @@ class _ReservePageState extends State<ReservePage> {
                       maxLines: 5,
                       keyboardType: TextInputType.multiline,
                       textInputAction: TextInputAction.newline,
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(100),
+                      ],
                     ),
                     SizedBox(
                       height: 20,

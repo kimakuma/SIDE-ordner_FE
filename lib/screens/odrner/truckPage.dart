@@ -73,18 +73,87 @@ class _TruckPageState extends State<TruckPage> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(0)),
                           child: SizedBox(
-                              height: 300,
-                              child: Calendar(
-                                reservedDays: reservedDays,
-                                onRangeSelected: (start, end) {
-                                  setState(() {
-                                    _rangeStart = start;
-                                    _rangeEnd = end;
-                                  });
-                                },
-                                selectedStart: _rangeStart,
-                                selectedEnd: _rangeEnd,
-                              )));
+                            height: 340,
+                            width: 300,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Calendar(
+                                  reservedDays: reservedDays,
+                                  onRangeSelected: (start, end) {
+                                    setState(() {
+                                      _rangeStart = start;
+                                      _rangeEnd = end;
+                                    });
+                                  },
+                                  selectedStart: _rangeStart,
+                                  selectedEnd: _rangeEnd,
+                                ),
+                                SizedBox(
+                                    height: 50,
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  _rangeStart = null;
+                                                  _rangeEnd = null;
+                                                });
+                                                Navigator.pop(context);
+                                              },
+                                              child: Container(
+                                                  width: 100,
+                                                  height: 35,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    color: Colors.grey.shade300,
+                                                  ),
+                                                  child: Text(
+                                                    "취소",
+                                                    style: TextStyle(
+                                                        fontSize: 18,
+                                                        color: Colors.black,
+                                                        height: 2),
+                                                    textAlign: TextAlign.center,
+                                                  )),
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: Container(
+                                                  width: 100,
+                                                  height: 35,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    color: Color.fromARGB(
+                                                        255, 56, 163, 30),
+                                                  ),
+                                                  child: Text(
+                                                    "확인",
+                                                    style: TextStyle(
+                                                        fontSize: 18,
+                                                        color: Colors.white,
+                                                        height: 2),
+                                                    textAlign: TextAlign.center,
+                                                  )),
+                                            )
+                                          ],
+                                        ),
+                                        SizedBox(height: 2)
+                                      ],
+                                    )),
+                              ],
+                            ),
+                          ));
                     });
               },
               child: IntrinsicHeight(

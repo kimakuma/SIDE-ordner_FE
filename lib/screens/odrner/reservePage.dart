@@ -22,7 +22,7 @@ class _ReservePageState extends State<ReservePage> {
     selectedStart = widget._rangeStart != null
         ? "${widget._rangeStart?.year}-${widget._rangeStart?.month}-${widget._rangeStart?.day}"
         : "0000-00-00";
-    selectedEnd = widget._rangeStart != null
+    selectedEnd = widget._rangeEnd != null
         ? "${widget._rangeEnd?.year}-${widget._rangeEnd?.month}-${widget._rangeEnd?.day}"
         : "0000-00-00";
   }

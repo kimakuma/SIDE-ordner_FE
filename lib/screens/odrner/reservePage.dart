@@ -19,12 +19,20 @@ class _ReservePageState extends State<ReservePage> {
   void initState() {
     super.initState();
 
-    selectedStart = widget._rangeStart != null
-        ? "${widget._rangeStart?.year}-${widget._rangeStart?.month}-${widget._rangeStart?.day}"
-        : "0000-00-00";
-    selectedEnd = widget._rangeEnd != null
-        ? "${widget._rangeEnd?.year}-${widget._rangeEnd?.month}-${widget._rangeEnd?.day}"
-        : "0000-00-00";
+    if ((widget._rangeStart) != null && (widget._rangeEnd) != null) {
+      selectedStart =
+          "${widget._rangeStart?.year}-${widget._rangeStart?.month}-${widget._rangeStart?.day}";
+      selectedEnd =
+          "${widget._rangeEnd?.year}-${widget._rangeEnd?.month}-${widget._rangeEnd?.day}";
+    } else if ((widget._rangeStart) == null && (widget._rangeEnd) == null) {
+      selectedStart = "0000-00-00";
+      selectedEnd = "0000-00-00";
+    } else {
+      selectedStart =
+          "${widget._rangeStart?.year}-${widget._rangeStart?.month}-${widget._rangeStart?.day}";
+      selectedEnd =
+          "${widget._rangeStart?.year}-${widget._rangeStart?.month}-${widget._rangeStart?.day}";
+    }
   }
 
   @override
@@ -44,7 +52,8 @@ class _ReservePageState extends State<ReservePage> {
                       height: 10,
                     ),
                     Text('예약 인원: 5 명'),
-                    Text('예약 일자: $selectedStart ~ $selectedEnd'),
+                    Text(
+                        '예약 일자: ${selectedStart == selectedEnd ? selectedStart == "0000-00-00" ? "선택되지 않았습니다." : selectedStart : "${selectedStart} ~ ${selectedEnd}"}'),
                     SizedBox(
                       height: 20,
                     ),

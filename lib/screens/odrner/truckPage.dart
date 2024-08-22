@@ -1,5 +1,7 @@
 /* 마이 페이지 - 개인 정보 */
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:foodplace/flutter/dev/integration_tests/flutter_gallery/lib/demo/contacts_demo.dart';
 
 import 'package:foodplace/services/API.dart';
 import 'package:foodplace/components/loading.dart';
@@ -19,10 +21,20 @@ class _TruckPageState extends State<TruckPage> {
   Map<String, dynamic> truckInfo = {};
   List<dynamic> truckMenu = [];
   List reservedDays = [];
+
   DateTime? _rangeStart;
   DateTime? _rangeEnd;
   DateTime? selectedStart;
   DateTime? selectedEnd;
+
+  List<String> selectPeople = [
+    "0 ~ 10",
+    "10 ~ 50",
+    "50 ~ 100",
+    "100 ~ 1000",
+    "1000 +"
+  ];
+  String selectedPeople = "";
 
   Future<void> init() async {
     final response =
@@ -44,6 +56,199 @@ class _TruckPageState extends State<TruckPage> {
     init();
   }
 
+  // people Widget
+  Future<dynamic> peopleWidget() {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+            child: Container(
+              width: 300,
+              height: 340,
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                        height: 40,
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(0, 7, 0, 7),
+                          child: Text(
+                            "인원 선택",
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        )),
+                    Expanded(
+                        child: ListView(
+                      padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                      children: List.generate(
+                        selectPeople.length,
+                        (index) => RadioListTile<String>(
+                          value: selectPeople[index],
+                          groupValue: selectedPeople,
+                          title: Text(
+                            "${selectPeople[index]} 명",
+                            style: TextStyle(fontSize: 15),
+                          ),
+                          contentPadding: EdgeInsets.symmetric(vertical: 0),
+                          onChanged: (value) {
+                            setState(() {
+                              selectedPeople = value!;
+                            });
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ),
+                    )),
+                    SizedBox(
+                        height: 50,
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      selectedPeople = "";
+                                    });
+                                    Navigator.pop(context);
+                                  },
+                                  child: Container(
+                                      width: 100,
+                                      height: 35,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.grey.shade300,
+                                      ),
+                                      child: Text(
+                                        "취소",
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.black,
+                                            height: 2),
+                                        textAlign: TextAlign.center,
+                                      )),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Container(
+                                      width: 100,
+                                      height: 35,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Color.fromARGB(255, 56, 163, 30),
+                                      ),
+                                      child: Text(
+                                        "확인",
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.white,
+                                            height: 2),
+                                        textAlign: TextAlign.center,
+                                      )),
+                                )
+                              ],
+                            ),
+                            SizedBox(height: 2)
+                          ],
+                        )),
+                  ]),
+            ));
+      },
+    );
+  }
+
+  // calendar Widget
+  Future<dynamic> calendarWidget() {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return Dialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(0)),
+              child: SizedBox(
+                height: 340,
+                width: 300,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Calendar(
+                      reservedDays: reservedDays,
+                      onRangeSelected: (start, end) {
+                        setState(() {
+                          _rangeStart = start;
+                          _rangeEnd = end;
+                        });
+                      },
+                      selectedStart: _rangeStart,
+                      selectedEnd: _rangeEnd,
+                    ),
+                    SizedBox(
+                        height: 50,
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      _rangeStart = null;
+                                      _rangeEnd = null;
+                                    });
+                                    Navigator.pop(context);
+                                  },
+                                  child: Container(
+                                      width: 100,
+                                      height: 35,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.grey.shade300,
+                                      ),
+                                      child: Text(
+                                        "취소",
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.black,
+                                            height: 2),
+                                        textAlign: TextAlign.center,
+                                      )),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Container(
+                                      width: 100,
+                                      height: 35,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Color.fromARGB(255, 56, 163, 30),
+                                      ),
+                                      child: Text(
+                                        "확인",
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            color: Colors.white,
+                                            height: 2),
+                                        textAlign: TextAlign.center,
+                                      )),
+                                )
+                              ],
+                            ),
+                            SizedBox(height: 2)
+                          ],
+                        )),
+                  ],
+                ),
+              ));
+        });
+  }
+
   // truckInfo Widget
   Widget truckInfoWidget() {
     if (truckInfo.isNotEmpty) {
@@ -55,116 +260,47 @@ class _TruckPageState extends State<TruckPage> {
         Padding(padding: EdgeInsets.all(5)),
         Text(style: TextStyle(fontSize: 30), truckInfo['name']),
         Container(
-            width: 100,
-            height: 25,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: Colors.grey,
-                width: 1,
-              ),
+          width: 180,
+          height: 25,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: Colors.grey,
+              width: 1,
             ),
-            child: GestureDetector(
-              onTap: () {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return Dialog(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(0)),
-                          child: SizedBox(
-                            height: 340,
-                            width: 300,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Calendar(
-                                  reservedDays: reservedDays,
-                                  onRangeSelected: (start, end) {
-                                    setState(() {
-                                      _rangeStart = start;
-                                      _rangeEnd = end;
-                                    });
-                                  },
-                                  selectedStart: _rangeStart,
-                                  selectedEnd: _rangeEnd,
-                                ),
-                                SizedBox(
-                                    height: 50,
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  _rangeStart = null;
-                                                  _rangeEnd = null;
-                                                });
-                                                Navigator.pop(context);
-                                              },
-                                              child: Container(
-                                                  width: 100,
-                                                  height: 35,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    color: Colors.grey.shade300,
-                                                  ),
-                                                  child: Text(
-                                                    "취소",
-                                                    style: TextStyle(
-                                                        fontSize: 18,
-                                                        color: Colors.black,
-                                                        height: 2),
-                                                    textAlign: TextAlign.center,
-                                                  )),
-                                            ),
-                                            GestureDetector(
-                                              onTap: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: Container(
-                                                  width: 100,
-                                                  height: 35,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    color: Color.fromARGB(
-                                                        255, 56, 163, 30),
-                                                  ),
-                                                  child: Text(
-                                                    "확인",
-                                                    style: TextStyle(
-                                                        fontSize: 18,
-                                                        color: Colors.white,
-                                                        height: 2),
-                                                    textAlign: TextAlign.center,
-                                                  )),
-                                            )
-                                          ],
-                                        ),
-                                        SizedBox(height: 2)
-                                      ],
-                                    )),
-                              ],
-                            ),
-                          ));
-                    });
-              },
-              child: IntrinsicHeight(
-                  child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Icon(Icons.calendar_month, color: Colors.grey, size: 20),
-                  Text("날짜 확인", style: TextStyle(color: Colors.grey.shade700)),
-                ],
-              )),
-            )),
+          ),
+          child: IntrinsicHeight(
+              child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              SizedBox(
+                width: 5,
+              ),
+              GestureDetector(
+                onTap: () {
+                  peopleWidget();
+                },
+                child: IntrinsicHeight(
+                  child: Text("인원 선택",
+                      style: TextStyle(color: Colors.grey.shade700)),
+                ),
+              ),
+              VerticalDivider(color: Colors.grey.shade300),
+              GestureDetector(
+                onTap: () {
+                  calendarWidget();
+                },
+                child: IntrinsicHeight(
+                  child: Text("날짜 선택",
+                      style: TextStyle(color: Colors.grey.shade700)),
+                ),
+              ),
+              SizedBox(
+                width: 5,
+              ),
+            ],
+          )),
+        ),
       ]);
     } else {
       return Loading();
@@ -268,8 +404,8 @@ class _TruckPageState extends State<TruckPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    ReservePage(_rangeStart, _rangeEnd)));
+                                builder: (context) => ReservePage(
+                                    _rangeStart, _rangeEnd, selectedPeople)));
                       },
                       child: Column(children: [
                         Container(

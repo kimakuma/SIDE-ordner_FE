@@ -4,8 +4,10 @@ import 'package:flutter/services.dart';
 class ReservePage extends StatefulWidget {
   final DateTime? _rangeStart;
   final DateTime? _rangeEnd;
+  final String? _selectedPeople;
 
-  const ReservePage(this._rangeStart, this._rangeEnd, {super.key});
+  const ReservePage(this._rangeStart, this._rangeEnd, this._selectedPeople,
+      {super.key});
 
   @override
   State<ReservePage> createState() => _ReservePageState();
@@ -51,7 +53,8 @@ class _ReservePageState extends State<ReservePage> {
                     SizedBox(
                       height: 10,
                     ),
-                    Text('예약 인원: 5 명'),
+                    Text(
+                        '예약 인원: ${widget._selectedPeople != "" ? "${widget._selectedPeople}명" : "선택되지 않았습니다."}'),
                     Text(
                         '예약 일자: ${selectedStart == selectedEnd ? selectedStart == "0000-00-00" ? "선택되지 않았습니다." : selectedStart : "${selectedStart} ~ ${selectedEnd}"}'),
                     SizedBox(

@@ -54,7 +54,7 @@ class _ReservePageState extends State<ReservePage> {
                       height: 10,
                     ),
                     Text(
-                        '예약 인원: ${widget._selectedPeople != "" ? "${widget._selectedPeople}명" : "선택되지 않았습니다."}'),
+                        '예약 인원: ${widget._selectedPeople != "" ? "${widget._selectedPeople} 명" : "선택되지 않았습니다."}'),
                     Text(
                         '예약 일자: ${selectedStart == selectedEnd ? selectedStart == "0000-00-00" ? "선택되지 않았습니다." : selectedStart : "${selectedStart} ~ ${selectedEnd}"}'),
                     SizedBox(

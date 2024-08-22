@@ -1,7 +1,6 @@
 /* 마이 페이지 - 개인 정보 */
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:foodplace/flutter/dev/integration_tests/flutter_gallery/lib/demo/contacts_demo.dart';
 
 import 'package:foodplace/services/API.dart';
 import 'package:foodplace/components/loading.dart';

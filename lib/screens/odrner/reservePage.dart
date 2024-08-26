@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+
+import 'package:foodplace/services/API.dart';
+
+// 로그인 상태 관리 파일
+import 'package:foodplace/components/loginStatus.dart';
 
 class ReservePage extends StatefulWidget {
+  final int truckId;
+  final String truckName;
+  final String? _selectedPeople;
   final DateTime? _rangeStart;
   final DateTime? _rangeEnd;
-  final String? _selectedPeople;
 
-  const ReservePage(this._rangeStart, this._rangeEnd, this._selectedPeople,
+  const ReservePage(this.truckId, this.truckName, this._selectedPeople,
+      this._rangeStart, this._rangeEnd,
       {super.key});
 
   @override
@@ -17,6 +26,12 @@ class _ReservePageState extends State<ReservePage> {
   late String selectedStart;
   late String selectedEnd;
 
+  var userId;
+  var truckId;
+  var truckName;
+  var startDate;
+  var endDate;
+
   @override
   void initState() {
     super.initState();
@@ -26,9 +41,6 @@ class _ReservePageState extends State<ReservePage> {
           "${widget._rangeStart?.year}-${widget._rangeStart?.month}-${widget._rangeStart?.day}";
       selectedEnd =
           "${widget._rangeEnd?.year}-${widget._rangeEnd?.month}-${widget._rangeEnd?.day}";
-    } else if ((widget._rangeStart) == null && (widget._rangeEnd) == null) {
-      selectedStart = "0000-00-00";
-      selectedEnd = "0000-00-00";
     } else {
       selectedStart =
           "${widget._rangeStart?.year}-${widget._rangeStart?.month}-${widget._rangeStart?.day}";
@@ -39,6 +51,8 @@ class _ReservePageState extends State<ReservePage> {
 
   @override
   Widget build(BuildContext context) {
+    final userInfo = Provider.of<Login>(context, listen: false);
+
     return Scaffold(
         body: Padding(
             padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
@@ -47,16 +61,18 @@ class _ReservePageState extends State<ReservePage> {
                 Expanded(
                   child: ListView(shrinkWrap: true, children: [
                     Text(
+                      widget.truckName,
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    Text(
                       "예약 정보",
                       style: TextStyle(fontSize: 18),
                     ),
                     SizedBox(
                       height: 10,
                     ),
-                    Text(
-                        '예약 인원: ${widget._selectedPeople != "" ? "${widget._selectedPeople} 명" : "선택되지 않았습니다."}'),
-                    Text(
-                        '예약 일자: ${selectedStart == selectedEnd ? selectedStart == "0000-00-00" ? "선택되지 않았습니다." : selectedStart : "${selectedStart} ~ ${selectedEnd}"}'),
+                    Text('예약 인원: ${widget._selectedPeople} 명'),
+                    Text('예약 일자: ${selectedStart} ~ ${selectedEnd}'),
                     SizedBox(
                       height: 20,
                     ),
@@ -220,6 +236,16 @@ class _ReservePageState extends State<ReservePage> {
                 GestureDetector(
                     onTap: () {
                       print("Reserved!");
+                      print(
+                          "${userInfo.id} + ${widget.truckId} + ${widget.truckName} + ${selectedStart} + ${selectedEnd}");
+
+                      // final response = APIPost(path: '/reserve', params: {
+                      //   userId: userInfo.id,
+                      //   truckId: widget.truckId,
+                      //   truckName: widget.truckName,
+                      //   startDate: selectedStart,
+                      //   endDate: selectedEnd
+                      // });
                     },
                     child: Column(children: [
                       Container(

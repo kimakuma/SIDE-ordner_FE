@@ -11,7 +11,6 @@ import 'package:foodplace/components/loginStatus.dart';
 import 'package:foodplace/screens/my/myPage.dart';
 import 'package:foodplace/screens/login/signInPage.dart';
 
-
 class My_MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -20,7 +19,24 @@ class My_MainPage extends StatelessWidget {
 
     return Scaffold(
         // 로그인 상태에 따라 로그인 / 마이 페이지 이동
-        body: loginStatus.isLogined ? MyPage() : SignInPage()
-      );
+        body: loginStatus.isLogined
+            ? MyPage()
+            : AlertDialog(
+                title: Text('알림'),
+                content: Text('로그인이 필요합니다.'),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      // Navigator.of(context).pop();
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => SignInPage(),
+                        ),
+                      );
+                    },
+                    child: Text('로그인'),
+                  )
+                ],
+              ));
   }
 }

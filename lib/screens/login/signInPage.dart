@@ -126,6 +126,8 @@ class _LoginState extends State<SignInPage> {
                               );
                             } else if (loginCheck['status'] == 200) {
                               loginStatus.logIn(loginCheck['results'][0]);
+
+                              Navigator.of(context).pop(true);
                             }
                           },
                           child: Text('로그인'),

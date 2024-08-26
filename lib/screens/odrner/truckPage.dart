@@ -1,12 +1,16 @@
 /* 마이 페이지 - 개인 정보 */
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 
 import 'package:foodplace/services/API.dart';
 import 'package:foodplace/components/loading.dart';
 import 'package:foodplace/screens/widget/calendar.dart';
 
+import 'package:foodplace/screens/login/signInPage.dart';
 import 'package:foodplace/screens/odrner/reservePage.dart';
+
+// 로그인 상태 관리 파일
+import 'package:foodplace/components/loginStatus.dart';
 
 class TruckPage extends StatefulWidget {
   final int truckId;
@@ -350,6 +354,91 @@ class _TruckPageState extends State<TruckPage> {
     }
   }
 
+  // reserve Btn
+  Widget reserveBtn() {
+    final userInfo = Provider.of<Login>(context, listen: false);
+    final loginStatus = Provider.of<Login>(context);
+
+    return GestureDetector(
+        onTap: () {
+          if (loginStatus.isLogined == false) {
+            //if (userInfo.id == 0) {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text('알림'),
+                    content: Text('로그인이 필요합니다.'),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => SignInPage(),
+                            ),
+                          );
+                        },
+                        child: Text('로그인'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('확인'),
+                      ),
+                    ],
+                  );
+                });
+          } else {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ReservePage(
+                        widget.truckId,
+                        truckInfo['name'],
+                        selectedPeople,
+                        _rangeStart,
+                        _rangeEnd)));
+          }
+        },
+        child: Column(children: [
+          Container(
+              width: (MediaQuery.of(context).size.width - 30),
+              height: 40,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: const Color.fromARGB(255, 45, 122, 255),
+              ),
+              child: Text(
+                "예약하기",
+                style:
+                    TextStyle(fontSize: 25, color: Colors.white, height: 1.7),
+                textAlign: TextAlign.center,
+              )),
+          Padding(padding: EdgeInsets.all(7))
+        ]));
+  }
+
+  // reserve Btn
+  Widget reserveBtnBlocked() {
+    return Column(children: [
+      Container(
+          width: (MediaQuery.of(context).size.width - 30),
+          height: 40,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.grey,
+          ),
+          child: Text(
+            "예약하기",
+            style: TextStyle(fontSize: 25, color: Colors.white, height: 1.7),
+            textAlign: TextAlign.center,
+          )),
+      Padding(padding: EdgeInsets.all(7))
+    ]);
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -398,32 +487,9 @@ class _TruckPageState extends State<TruckPage> {
                       ],
                     ),
                   ),
-                  GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ReservePage(
-                                    _rangeStart, _rangeEnd, selectedPeople)));
-                      },
-                      child: Column(children: [
-                        Container(
-                            width: (MediaQuery.of(context).size.width - 30),
-                            height: 40,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: const Color.fromARGB(255, 45, 122, 255),
-                            ),
-                            child: Text(
-                              "예약하기",
-                              style: TextStyle(
-                                  fontSize: 25,
-                                  color: Colors.white,
-                                  height: 1.7),
-                              textAlign: TextAlign.center,
-                            )),
-                        Padding(padding: EdgeInsets.all(7))
-                      ]))
+                  (selectedPeople != "" && _rangeStart != null)
+                      ? reserveBtn()
+                      : reserveBtnBlocked()
                 ]))));
   }
 }

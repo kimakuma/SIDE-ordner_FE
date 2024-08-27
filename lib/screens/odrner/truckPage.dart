@@ -356,13 +356,11 @@ class _TruckPageState extends State<TruckPage> {
 
   // reserve Btn
   Widget reserveBtn() {
-    final userInfo = Provider.of<Login>(context, listen: false);
     final loginStatus = Provider.of<Login>(context);
 
     return GestureDetector(
         onTap: () {
           if (loginStatus.isLogined == false) {
-            //if (userInfo.id == 0) {
             showDialog(
                 context: context,
                 builder: (BuildContext context) {

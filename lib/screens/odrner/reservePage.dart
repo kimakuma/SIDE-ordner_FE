@@ -7,6 +7,9 @@ import 'package:foodplace/services/API.dart';
 // 로그인 상태 관리 파일
 import 'package:foodplace/components/loginStatus.dart';
 
+// 홈화면
+import 'package:foodplace/main.dart';
+
 class ReservePage extends StatefulWidget {
   final int truckId;
   final String truckName;
@@ -25,12 +28,15 @@ class ReservePage extends StatefulWidget {
 class _ReservePageState extends State<ReservePage> {
   late String selectedStart;
   late String selectedEnd;
+  final TextEditingController msgController = TextEditingController();
 
   var userId;
   var truckId;
   var truckName;
   var startDate;
   var endDate;
+  var people;
+  var msg;
 
   @override
   void initState() {
@@ -84,6 +90,7 @@ class _ReservePageState extends State<ReservePage> {
                       height: 10,
                     ),
                     TextField(
+                      controller: msgController,
                       decoration: InputDecoration(
                         hintText: '요청사항을 적어주세요. (최대 100자)',
                         hintStyle: TextStyle(
@@ -234,18 +241,58 @@ class _ReservePageState extends State<ReservePage> {
                   ]),
                 ),
                 GestureDetector(
-                    onTap: () {
-                      print("Reserved!");
-                      print(
-                          "${userInfo.id} + ${widget.truckId} + ${widget.truckName} + ${selectedStart} + ${selectedEnd}");
+                    onTap: () async {
+                      Map<String, dynamic> response =
+                          await APIPost(path: '/reserve', params: {
+                        "userId": userInfo.id,
+                        "truckId": widget.truckId,
+                        "truckName": widget.truckName,
+                        "startDate": selectedStart,
+                        "endDate": selectedEnd,
+                        "people": widget._selectedPeople,
+                        "msg": msgController.text
+                      });
 
-                      // final response = APIPost(path: '/reserve', params: {
-                      //   userId: userInfo.id,
-                      //   truckId: widget.truckId,
-                      //   truckName: widget.truckName,
-                      //   startDate: selectedStart,
-                      //   endDate: selectedEnd
-                      // });
+                      if (response["status"] == 400) {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text('알림'),
+                                content: Text(response["message"]),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text('확인'),
+                                  ),
+                                ],
+                              );
+                            });
+                      } else if (response["status"] == 200) {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text('알림'),
+                                content: Text(response["message"]),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => MyApp()),
+                                        (Route<dynamic> route) => false,
+                                      );
+                                    },
+                                    child: Text('확인'),
+                                  ),
+                                ],
+                              );
+                            });
+                      }
                     },
                     child: Column(children: [
                       Container(

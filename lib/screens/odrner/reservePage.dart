@@ -243,7 +243,7 @@ class _ReservePageState extends State<ReservePage> {
                 GestureDetector(
                     onTap: () async {
                       Map<String, dynamic> response =
-                          await APIPost(path: '/reserve', params: {
+                          await APIPost(path: '/reserve/reserve', params: {
                         "userId": userInfo.id,
                         "truckId": widget.truckId,
                         "truckName": widget.truckName,
@@ -259,7 +259,24 @@ class _ReservePageState extends State<ReservePage> {
                             builder: (BuildContext context) {
                               return AlertDialog(
                                 title: Text('알림'),
-                                content: Text(response["message"]),
+                                content: Text("이미 예약된 날짜입니다."),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text('확인'),
+                                  ),
+                                ],
+                              );
+                            });
+                      } else if (response["status"] == 500) {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text('알림'),
+                                content: Text("잠시후에 다시 진행해주세요."),
                                 actions: [
                                   TextButton(
                                     onPressed: () {
@@ -276,7 +293,7 @@ class _ReservePageState extends State<ReservePage> {
                             builder: (BuildContext context) {
                               return AlertDialog(
                                 title: Text('알림'),
-                                content: Text(response["message"]),
+                                content: Text("예약이 완료되었습니다."),
                                 actions: [
                                   TextButton(
                                     onPressed: () {

@@ -23,7 +23,7 @@ class _ReserveListPageState extends State<ReserveListPage> {
   Future<void> init() async {
     final userInfo = Provider.of<Login>(context, listen: false);
     final userId = userInfo.id;
-    final response = await APIGet(path: '/reserve/list?userId=$userId');
+    final response = await APIGet(path: '/reserve/reserveList?userId=$userId');
 
     if (response['status'] == 200 && !response['results']['before'].isEmpty) {
       setState(() {

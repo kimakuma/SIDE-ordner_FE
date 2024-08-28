@@ -23,6 +23,7 @@ class TruckPage extends StatefulWidget {
 class _TruckPageState extends State<TruckPage> {
   Map<String, dynamic> truckInfo = {};
   List<dynamic> truckMenu = [];
+  List truckSchedule = [];
   List reservedDays = [];
 
   DateTime? _rangeStart;
@@ -41,14 +42,17 @@ class _TruckPageState extends State<TruckPage> {
 
   Future<void> init() async {
     final response =
-        await APIGet(path: '/reserve/truckDetail?truckId=${widget.truckId}');
+        await APIGet(path: '/reserve/truckInfo?truckId=${widget.truckId}');
 
     if (response['status'] == 200 && !response['results'].isEmpty) {
       setState(() {
         truckInfo = response['results']['truckInfo'];
         truckMenu = response['results']['truckMenuList'];
+        truckSchedule = response['results']['truckSchedule'];
 
-        reservedDays.add(DateTime(2024, 8, 1));
+        truckSchedule.forEach((data) {
+          reservedDays.add(DateTime.parse(data));
+        });
       });
     }
   }

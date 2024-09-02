@@ -13,7 +13,7 @@ class menuList {
   int menuLen = 16;
 
   final Map<String, Map<String, String>> menu = {
-    "내역 목록": {"예약 내역": "reserveList", "찜 내역": "likeList", "결제 내역": "payList"},
+    "내역 목록": {"찜 내역": "likeList", "예약 내역": "reserveList", "결제 내역": "payList"},
     "고객센터": {
       "자주 묻는 질문": "qna",
       "1:1 카카오 문의": "kakao",

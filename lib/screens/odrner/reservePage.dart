@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/gestures.dart';
 
 import 'package:foodplace/services/API.dart';
 
@@ -9,6 +10,7 @@ import 'package:foodplace/components/loginStatus.dart';
 
 // 홈화면
 import 'package:foodplace/main.dart';
+import 'package:foodplace/screens/widget/policy.dart';
 
 class ReservePage extends StatefulWidget {
   final int truckId;
@@ -37,6 +39,8 @@ class _ReservePageState extends State<ReservePage> {
   var endDate;
   var people;
   var msg;
+
+  final bottomModal = Policy(type: "aasdad");
 
   @override
   void initState() {
@@ -181,55 +185,79 @@ class _ReservePageState extends State<ReservePage> {
                         children: [
                           TextSpan(text: "아래 버튼을 선택하면 "),
                           TextSpan(
-                            text: "오더가 설정한 이용규칙,",
-                            style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                fontWeight: FontWeight.bold),
-                          ),
+                              text: "오더가 설정한 이용규칙,",
+                              style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  fontWeight: FontWeight.bold),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Policy(type: "이용규칙").bottomModal(context);
+                                }),
                           TextSpan(text: " "),
                           TextSpan(
-                            text: "오너에게 적용되는 기본 규칙,",
-                            style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                fontWeight: FontWeight.bold),
-                          ),
+                              text: "오너에게 적용되는 기본 규칙,",
+                              style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  fontWeight: FontWeight.bold),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Policy(type: "기본 규칙").bottomModal(context);
+                                }),
                           TextSpan(text: " "),
                           TextSpan(
-                            text: "오드너 재예약 및 환불정책",
-                            style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                fontWeight: FontWeight.bold),
-                          ),
+                              text: "오드너 재예약 및 환불 정책",
+                              style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  fontWeight: FontWeight.bold),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Policy(type: "재예약 및 환불 정책")
+                                      .bottomModal(context);
+                                }),
                           TextSpan(text: "에 동의하며, 피해에 대한 책임이 본인에게 있을 경우 오드너가 "),
                           TextSpan(
-                            text: "결제 수단으로 청구의 조치",
-                            style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                fontWeight: FontWeight.bold),
-                          ),
+                              text: "결제 수단으로 청구의 조치",
+                              style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  fontWeight: FontWeight.bold),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Policy(type: "청구의 조치").bottomModal(context);
+                                }),
                           TextSpan(
                               text:
                                   "를 취할 수 있다는 사실에 동의하는 것입니다. 오너가 예약 요청을 수락하고 결제하면 예약 확정이 되는 것에 대해 동의합니다. 또한 "),
                           TextSpan(
-                            text: "개정된 이용 약관",
-                            style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                fontWeight: FontWeight.bold),
-                          ),
+                              text: "개정된 이용 약관",
+                              style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  fontWeight: FontWeight.bold),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Policy(type: "이용 약관").bottomModal(context);
+                                }),
                           TextSpan(text: "과 "),
                           TextSpan(
-                            text: "결제 서비스 약관",
-                            style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                fontWeight: FontWeight.bold),
-                          ),
+                              text: "결제 서비스 약관",
+                              style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  fontWeight: FontWeight.bold),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Policy(type: "결제 서비스 약관")
+                                      .bottomModal(context);
+                                }),
                           TextSpan(text: " 및 "),
                           TextSpan(
-                            text: "개인정보 처리방침",
-                            style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                fontWeight: FontWeight.bold),
-                          ),
+                              text: "개인정보 처리방침",
+                              style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  fontWeight: FontWeight.bold),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Policy(type: "개인정보 처리방침")
+                                      .bottomModal(context);
+                                }),
                           TextSpan(text: "에도 동의합니다."),
                         ],
                       ),

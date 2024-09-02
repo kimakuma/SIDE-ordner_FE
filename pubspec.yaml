@@ -38,12 +38,13 @@ dependencies:
   shared_preferences: ^2.1.0 # 공유저장소 사용을 하기 위함(자동 로그인)
   crypto: ^3.0.3 # 정보 암호화를 위함 (사용자 비밀번호 암호화)
   cupertino_icons: ^1.0.2 # iOS 스타일의 위젯 사용을 위함
-  flutter_provider: ^2.1.0
-  elastic_client: ^0.3.15
-  http: ^1.2.1
-  table_calendar: ^3.1.2
-  calendar_date_picker2: ^1.1.5
-  intl: ^0.19.0
+  flutter_provider: ^2.1.0 # 상태관리를 위함
+  elastic_client: ^0.3.15 # ElasticSearch 사용을 위함
+  http: ^1.2.1 # API 연동 시 사용
+  table_calendar: ^3.1.2 # Calendar Widget 사용
+  calendar_date_picker2: ^1.1.5 # Calendar Widget에서 날짜 선택시 사용
+  intl: ^0.19.0 # Calendar Widget에서 사용
+  badges: ^3.1.2  # 뱃지에 사용
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

@@ -29,8 +29,8 @@ class My_DetailPage extends StatefulWidget implements PreferredSizeWidget {
 
 class _My_DetailPageState extends State<My_DetailPage> {
   final Map<String, Widget> menu = {
-    "reserveList": ReserveListPage(),
     "likeList": LikeListPage(),
+    "reserveList": ReserveListPage(),
     "payList": PayListPage(),
     "qna": QnaPage(),
     "kakao": KakaoPage(),

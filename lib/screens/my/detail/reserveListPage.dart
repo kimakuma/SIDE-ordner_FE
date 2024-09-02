@@ -54,64 +54,71 @@ class _ReserveListPageState extends State<ReserveListPage> {
             borderRadius: BorderRadius.circular(10),
             border: Border.all(color: Colors.grey.shade300, width: 2)),
         child: IntrinsicHeight(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Image.asset(width: 60, 'images/profile.webp'),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(data['truckName']),
-                  Row(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "시작 일",
-                            style: TextStyle(fontSize: 10),
-                          ),
-                          Text(
-                              data['startDate'].substring(5, 7) +
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Row(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.asset(width: 60, 'images/profile.webp'),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(data['truckName']),
+                    Row(
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "시작 일",
+                              style: TextStyle(fontSize: 10),
+                            ),
+                            Text(
+                                data['startDate'].substring(5, 7) +
+                                    "/" +
+                                    data['startDate'].substring(8, 10),
+                                style: TextStyle(fontSize: 10)),
+                          ],
+                        ),
+                        SizedBox(width: 10),
+                        Container(
+                          width: 1,
+                          height: 20,
+                          color: Colors.grey.shade500,
+                        ),
+                        SizedBox(width: 10),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "마지막 일",
+                              style: TextStyle(fontSize: 10),
+                            ),
+                            Text(
+                              data['endDate'].substring(5, 7) +
                                   "/" +
-                                  data['startDate'].substring(8, 10),
-                              style: TextStyle(fontSize: 10)),
-                        ],
-                      ),
-                      SizedBox(width: 10),
-                      Container(
-                        width: 1,
-                        height: 20,
-                        color: Colors.grey.shade500,
-                      ),
-                      SizedBox(width: 10),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "마지막 일",
-                            style: TextStyle(fontSize: 10),
-                          ),
-                          Text(
-                            data['endDate'].substring(5, 7) +
-                                "/" +
-                                data['endDate'].substring(8, 10),
-                            style: TextStyle(fontSize: 10),
-                          ),
-                        ],
-                      )
-                    ],
-                  )
-                ],
-              ),
-            ],
-          ),
+                                  data['endDate'].substring(8, 10),
+                              style: TextStyle(fontSize: 10),
+                            ),
+                          ],
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              // children: [processBadge(data['process'])],
+              children: [Text("delete")],
+            )
+          ]),
         ));
   }
 
@@ -152,15 +159,15 @@ class _ReserveListPageState extends State<ReserveListPage> {
               indicatorWeight: 3,
               tabs: [
                 Tab(
-                  text: '이용 전',
+                  text: '이용 전', // 대기
                   height: 35,
                 ),
                 Tab(
-                  text: '이용 중',
+                  text: '이용 중', // 완료
                   height: 35,
                 ),
                 Tab(
-                  text: '이용 후',
+                  text: '이용 후', // 취소
                   height: 35,
                 )
               ]),

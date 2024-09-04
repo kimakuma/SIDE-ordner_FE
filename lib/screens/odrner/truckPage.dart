@@ -7,6 +7,7 @@ import 'package:foodplace/components/loading.dart';
 import 'package:foodplace/screens/widget/calendar.dart';
 
 import 'package:foodplace/screens/login/signInPage.dart';
+import 'package:foodplace/screens/odrner/estimatePage.dart';
 import 'package:foodplace/screens/odrner/reservePage.dart';
 
 // 로그인 상태 관리 파일
@@ -358,6 +359,34 @@ class _TruckPageState extends State<TruckPage> {
     }
   }
 
+  // estimate Btn
+  Widget estimateBtn() {
+    return GestureDetector(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      EstimatePage(widget.truckId, truckInfo['name'])));
+        },
+        child: Column(children: [
+          Container(
+              width: (MediaQuery.of(context).size.width / 4 + 20),
+              height: 40,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Color.fromARGB(255, 181, 218, 255),
+              ),
+              child: Text(
+                "견적 문의",
+                style:
+                    TextStyle(fontSize: 25, color: Colors.white, height: 1.5),
+                textAlign: TextAlign.center,
+              )),
+          Padding(padding: EdgeInsets.all(7))
+        ]));
+  }
+
   // reserve Btn
   Widget reserveBtn() {
     final loginStatus = Provider.of<Login>(context);
@@ -406,14 +435,14 @@ class _TruckPageState extends State<TruckPage> {
         },
         child: Column(children: [
           Container(
-              width: (MediaQuery.of(context).size.width - 30),
+              width: (MediaQuery.of(context).size.width / 4 * 3 - 70),
               height: 40,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: const Color.fromARGB(255, 45, 122, 255),
               ),
               child: Text(
-                "예약하기",
+                "예약",
                 style:
                     TextStyle(fontSize: 25, color: Colors.white, height: 1.7),
                 textAlign: TextAlign.center,
@@ -422,18 +451,18 @@ class _TruckPageState extends State<TruckPage> {
         ]));
   }
 
-  // reserve Btn
+  // reserve Btn Blocked
   Widget reserveBtnBlocked() {
     return Column(children: [
       Container(
-          width: (MediaQuery.of(context).size.width - 30),
+          width: (MediaQuery.of(context).size.width / 4 * 3 - 70),
           height: 40,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color: Colors.grey,
           ),
           child: Text(
-            "예약하기",
+            "예약",
             style: TextStyle(fontSize: 25, color: Colors.white, height: 1.7),
             textAlign: TextAlign.center,
           )),
@@ -489,9 +518,14 @@ class _TruckPageState extends State<TruckPage> {
                       ],
                     ),
                   ),
-                  (selectedPeople != "" && _rangeStart != null)
-                      ? reserveBtn()
-                      : reserveBtnBlocked()
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        estimateBtn(),
+                        (selectedPeople != "" && _rangeStart != null)
+                            ? reserveBtn()
+                            : reserveBtnBlocked()
+                      ]),
                 ]))));
   }
 }

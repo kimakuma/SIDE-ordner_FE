@@ -40,8 +40,6 @@ class _ReservePageState extends State<ReservePage> {
   var people;
   var msg;
 
-  final bottomModal = Policy(type: "aasdad");
-
   @override
   void initState() {
     super.initState();
@@ -64,6 +62,7 @@ class _ReservePageState extends State<ReservePage> {
     final userInfo = Provider.of<Login>(context, listen: false);
 
     return Scaffold(
+        appBar: AppBar(title: Text("예약")),
         body: Padding(
             padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
             child: Column(
@@ -348,7 +347,7 @@ class _ReservePageState extends State<ReservePage> {
                             color: const Color.fromARGB(255, 45, 122, 255),
                           ),
                           child: Text(
-                            "예약하기",
+                            "예약",
                             style: TextStyle(
                                 fontSize: 25, color: Colors.white, height: 1.7),
                             textAlign: TextAlign.center,

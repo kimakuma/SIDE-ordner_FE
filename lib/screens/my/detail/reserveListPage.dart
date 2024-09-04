@@ -159,15 +159,15 @@ class _ReserveListPageState extends State<ReserveListPage> {
               indicatorWeight: 3,
               tabs: [
                 Tab(
-                  text: '이용 전', // 대기
+                  text: '대기',
                   height: 35,
                 ),
                 Tab(
-                  text: '이용 중', // 완료
+                  text: '완료',
                   height: 35,
                 ),
                 Tab(
-                  text: '이용 후', // 취소
+                  text: '취소',
                   height: 35,
                 )
               ]),
